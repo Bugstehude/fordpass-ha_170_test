@@ -20,6 +20,7 @@ from .const import (
     CONF_PRESSURE_UNIT,
     DEFAULT_DISTANCE_UNIT,
     DEFAULT_PRESSURE_UNIT,
+    DEFAULT_REGION,
     DOMAIN,
     MANUFACTURER,
     REGION,
@@ -61,7 +62,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         region = entry.data[REGION]
     else:
         _LOGGER.debug("CANT GET REGION")
-        region = "North America & Canada"
+        region = DEFAULT_REGION
     coordinator = FordPassDataUpdateCoordinator(hass, user, password, vin, region, update_interval, 1)
 
     await coordinator.async_refresh()  # Get initial data
@@ -79,16 +80,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         "fordpass_options_listener": fordpass_options_listener
     }
 
-    for component in PLATFORMS:
-        hass.async_create_task(
-            hass.config_entries.async_forward_entry_setup(entry, component)
-        )
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     async def async_refresh_status_service(service_call):
         await hass.async_add_executor_job(
             refresh_status, hass, service_call, coordinator
         )
-        await coordinator.async_request_refresh()
 
     async def async_clear_tokens_service(service_call):
         await hass.async_add_executor_job(clear_tokens, hass, service_call, coordinator)
@@ -158,10 +155,10 @@ def refresh_status(hass, service, coordinator):
     _LOGGER.debug("Running Service")
     vin = service.data.get("vin", "")
     status = coordinator.vehicle.request_update(vin)
-    if status:
+    if status == 401:
+        _LOGGER.debug("Invalid VIN")
+    elif status == 200:
         _LOGGER.debug("Refresh Sent")
-        return True
-    return False
 
 
 def clear_tokens(hass, service, coordinator):
@@ -224,14 +221,12 @@ class FordPassDataUpdateCoordinator(DataUpdateCoordinator):
 
                 return data
         except Exception as ex:
-            # self._available = False  # Mark as unavailable
+            self._available = False  # Mark as unavailable
             _LOGGER.warning(str(ex))
             _LOGGER.warning("Error communicating with FordPass for %s", self.vin)
-            _LOGGER.warning("Returning Stale data to prevent unavaliable status")
-            if self.data:
-                if "metrics" in self.data:
-                    return self.data
-            raise UpdateFailed(f"Error communicating with FordPass for {self.vin}") from ex
+            raise UpdateFailed(
+                f"Error communicating with FordPass for {self.vin}"
+            ) from ex
 
 
 class FordPassEntity(CoordinatorEntity):

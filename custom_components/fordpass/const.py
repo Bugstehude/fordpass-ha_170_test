@@ -27,7 +27,8 @@ COORDINATOR = "coordinator"
 
 REGION = "region"
 
-REGION_OPTIONS = ["UK&Europe", "Australia", "North America & Canada"]
+REGION_OPTIONS = ["Netherlands", "UK&Europe", "Australia", "USA", "Canada"]
+DEFAULT_REGION = "USA"
 
 SENSORS = {
     "odometer": {"icon": "mdi:counter", "state_class": "total", "device_class": "distance", "api_key": "odometer", "measurement": "km"},
@@ -84,26 +85,39 @@ WINDOW_POSITIONS = {
 }
 
 REGIONS = {
+    "Netherlands": {
+        "region": "1E8C7794-FF5F-49BC-9596-A1E0C86C5B19",
+        "locale": "nl-NL",
+        "locale_short": "NL",
+        "locale_url": "https://login.ford.nl",
+        "countrycode": "NLD"
+    },
     "UK&Europe": {
         "region": "1E8C7794-FF5F-49BC-9596-A1E0C86C5B19",
         "locale": "EN-IE",
         "locale_short": "IE", #Temp fix 
-        "locale_url": "https://login.ford.ie"
+        "locale_url": "https://login.ford.ie",
+        "countrycode": "GBR"
     },
     "Australia": {
         "region": "5C80A6BB-CF0D-4A30-BDBF-FC804B5C1A98",
         "locale": "EN-AU",
         "locale_short": "AUS",
-        "locale_url": "https://login.ford.com.au"
+        "locale_url": "https://login.ford.com.au",
+        "countrycode": "AUS"
     },
-    "North America & Canada": {
+    "USA": {
+        "region": "71A3AD0A-CF46-4CCF-B473-FC7FE5BC4592", # ???
+        "locale": "en-US",
+        "locale_short": "USA",
+        "locale_url": "https://login.ford.com", # Reverted from AU to US because it appears to be working
+        "countrycode": "USA"
+    },
+    "Canada": {
         "region": "71A3AD0A-CF46-4CCF-B473-FC7FE5BC4592",
-        "locale": "EN-AU",
-        "locale_short": "AUS",
-        "locale_url": "https://login.ford.com.au" #Temp fix until I can implement the correct American URL
+        "locale": "en-CA",
+        "locale_short": "CAN",
+        "locale_url": "https://login.ford.com",
+        "countrycode": "USA"
     }
-
 }
-
-
-

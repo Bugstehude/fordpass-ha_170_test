@@ -15,7 +15,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
 
     # switches = [Switch(entry)]
     # async_add_entities(switches, False)
-    for key in SWITCHES:
+    for key, value in SWITCHES.items():
         sw = Switch(entry, key, config_entry.options)
         # Only add guard entity if supported by the car
         if key == "guardmode":
@@ -36,7 +36,7 @@ class Switch(FordPassEntity, SwitchEntity):
         self._device_id = "fordpass_" + switch
         self.switch = switch
         self.coordinator = coordinator
-        self.data = coordinator.data.get("metrics", {})
+        self.data = coordinator.data["metrics"]
         # Required for HA 2022.7
         self.coordinator_context = object()
 
@@ -82,14 +82,12 @@ class Switch(FordPassEntity, SwitchEntity):
     def is_on(self):
         """Check status of switch"""
         if self.switch == "ignition":
-            # Return None if both ignitionStatus and remoteStartCountdownTimer are None
-            metrics = self.coordinator.data.get("metrics", {})
-            ignition_status = metrics.get("ignitionStatus", {}).get("value")
-            countdown_timer = metrics.get("remoteStartCountdownTimer", {}).get("value")
-            if ignition_status == "ON" or countdown_timer is not None and countdown_timer > 0:
-                return True
-            return False
-
+            if (
+                self.coordinator.data["metrics"] is None or self.coordinator.data["metrics"]["ignitionStatus"] is None
+            ):
+                return None
+            if self.coordinator.data["metrics"]["ignitionStatus"]["value"] == "OFF":
+                return False
         if self.switch == "guardmode":
             # Need to find the correct response for enabled vs disabled so this may be spotty at the moment
             guardstatus = self.coordinator.data["guardstatus"]
