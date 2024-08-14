@@ -16,23 +16,13 @@
                     "username": "FordPass Username (Email)",
                     "vin": "VIN",
                     "region" : "FordPass Regione"
-                },
-                "data_description": {
-                    "username": "Se utilizzi un cellulare anziché un'e-mail, inserisci il tuo numero (meno lo 0 iniziale), includi anche + e il prefisso internazionale (ad esempio +99123456789)"
-                } 
+                }
             },
             "vehicle": {
                 "title": "Seleziona il veicolo da aggiungere",
                 "description": "Verranno visualizzati solo i veicoli attualmente non aggiunti",
                 "data": {
-                  "vin": "VIN"
-                }
-              },
-              "vin": {
-                "title": "Inserimento manuale del vin",
-                "description": "Inserisci manualmente il numero VIN poiché non è stato possibile trovare veicoli automaticamente.",
-                "data": {
-                    "vin": "Numero di telaio del veicolo"
+                    "vin": "VIN"
                 }
             }
         }

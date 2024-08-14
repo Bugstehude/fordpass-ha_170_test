@@ -16,23 +16,13 @@
                     "username": "FordPass Username (E-Mail)",
                     "vin": "FIN",
                     "region" : "FordPass Region"
-                },
-                "data_description": {
-                    "username": "Wenn Sie ein Mobiltelefon anstelle einer E-Mail verwenden, geben Sie bitte Ihre Nummer (minus die anfängliche 0) sowie + und die Landesvorwahl ein (z. B. +99123456789)."
-                } 
+                }
             },
             "vehicle": {
                 "title": "Selecteer voertuig om toe te voegen",
                 "description": "Alleen voertuigen die momenteel niet zijn toegevoegd, worden weergegeven",
                 "data": {
-                  "vin": "VIN"
-                }
-              },
-              "vin": {
-                "title": "Manuelle Vin-Eingabe",
-                "description": "Bitte geben Sie Ihre VIN-Nummer manuell ein, da keine Fahrzeuge automatisch gefunden werden konnten.",
-                "data": {
-                    "vin": "Fahrgestellnummer für das Fahrzeug"
+                    "vin": "VIN"
                 }
             }
         }

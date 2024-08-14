@@ -8,9 +8,19 @@
             "cannot_connect": "Failed to connect",
             "invalid_auth": "Invalid Credentials",
             "invalid_vin": "Vin not found for given account",
+            "invalid_mobile": "Mobile number as username must be specified if using South African Region",
+            "invalid_token": "Token is invalid, please check you copied the correct token from the Header Location, it should start with fordapp://",
             "unknown": "Unexpected error"
         },
         "step": {
+            "token": {
+                "title": "Setup Token",
+                "description": "Please enter the full token from the Location: header once logging in using the URL below",
+                "data": {
+                    "url": "URL",
+                    "tokenstr": "Token"
+                }
+            },
             "user": {
                 "data": {
                     "password": "FordPass Password",
@@ -25,9 +35,9 @@
                 "title": "Select vehicle to add",
                 "description": "Only vehicles not currently added will be shown",
                 "data": {
-                  "vin": "VIN"
+                    "vin": "VIN"
                 }
-              },
+            },
             "vin": {
                 "title": "Manual Vin Entry",
                 "description": "Please enter your VIN number manually as no vehicles could be found automatticaly.",
@@ -57,7 +67,7 @@
             "fields": {
                 "vin": {
                     "name": "VIN",
-                    "description": "Parse a vin number to only refresh the specified vehicle (Default refreshes all added vehicles)"
+                    "description": "Enter a vin number to only refresh the specified vehicle (Default refreshes all added vehicles)"
                 }
             }
         },
