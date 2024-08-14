@@ -1,10 +1,8 @@
 ## **Changelog**
+### Version 1.70
+- New config flow to allow for a user to generate a token in their browser then enter into the application, bypasses WAF. 
 ### Version 1.69
-**WARNING - This version will only work if you have tokens already, Login is currently broke!!**
-Valid tokens should work for upto 90days!!
-
-If you have lost your token try branch 1.70, you will need to manually update the files as this isn't ready for HACS release yet
-- Fix token refresh
+- Versioning issue 1.69 is 1.70
 ### Version 1.68
 - Fix for missing locale
 - Fix duplicate Switches dictionary
@@ -293,4 +291,3 @@ Fordpass can be configured via Integrations UI
 2. Click the orange + icon at the bottom right to bring up new integration window
 3. Find and click on fordpass
 4. Enter required information and click Submit
-
